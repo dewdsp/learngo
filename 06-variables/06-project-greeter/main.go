@@ -13,6 +13,6 @@ func main() {
 	fmt.Println("2nd argument:", os.Args[2])
 	fmt.Println("3rd argument:", os.Args[3])
 
-	fmt.Println("Number of items inside os.Args:", len(os.Args))
+	fmt.Println("Number of Args inside os.Args:", len(os.Args))
 
 }
