@@ -14,7 +14,6 @@ func main() {
 	)
 
 	celsius := 35.
-	// correct formular = (9*celsius +160) / 5
 	fahrenheit := (9*celsius + 160) / 5
 	fmt.Printf("%g C is %g F\n", celsius, fahrenheit)
 }
