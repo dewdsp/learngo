@@ -78,3 +78,45 @@ If you are unsure of how to pass a flag to `gopls` through your editor, please s
 ### Restart your editor
 
 Once you have filed an issue, you can then try to restart your `gopls` instance by restarting your editor. In many cases, this will correct the problem. In VSCode, the easiest way to restart the language server is by opening the command palette (Ctrl + Shift + P) and selecting `"Go: Restart Language Server"`. You can also reload the VSCode instance by selecting `"Developer: Reload Window"`.
+
+** Git actions
+go.yml
+
+```
+on: [push, pull_request]
+name: Test
+jobs:
+  test:
+    strategy:
+      matrix:
+        go-version: [1.13.x, 1.14.x]
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go-version }}
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Test
+      run: go test ./...
+
+  test-gopath:
+    env:
+      GOPATH: ${{ github.workspace }}
+      GO111MODULE: off
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.14.x
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        path: ./src/github.com/${{ github.repository }}
+    - name: Test
+      run: go test ./...
+
+```
